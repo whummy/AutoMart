@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models.Cars
+namespace Entities.DataTransferObjects
 {
-    public class Car
+    public class BrandDto
     {
         public Guid Id { get; set; }
-        public string name { get; set; }
+        public string Name { get; set; }
     }
 }
