@@ -1,3 +1,4 @@
+using AutoMart.ActionFilters;
 using AutoMart.Extensions;
 using Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,12 +40,17 @@ namespace AutoMart
             services.ConfigureSwagger();
             services.ConfigureRepositoryManager();
             services.AddAutoMapper(typeof(Startup));
+            services.AddAuthentication();
+            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+            services.ConfigureIdentity();
+            services.ConfigureJWT(Configuration);
+            services.AddScoped<ValidationFilterAttribute>();
             services.AddControllers(config =>
             {
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
             }).AddXmlDataContractSerializerFormatters()
-            .AddCustomCSVFormatter();
+              .AddCustomCSVFormatter();
             services.AddControllers();
         }
 
@@ -60,6 +67,8 @@ namespace AutoMart
             }
 
             app.ConfigureExceptionHandler(logger);
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseHttpsRedirection(); 
             app.UseStaticFiles();
             app.UseCors("CorsPolicy");

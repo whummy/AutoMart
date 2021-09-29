@@ -15,7 +15,6 @@ namespace Entities.Configuration
         {
             builder.HasMany(x => x.Cars)
                 .WithOne()
-                .HasForeignKey(x => x.UserId)
                  .OnDelete(DeleteBehavior.NoAction);
         }
     }

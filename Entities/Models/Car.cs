@@ -9,7 +9,6 @@ namespace Entities.Models
 {
     public class Car
     {
-        [Column("CarId")]
         public Guid Id { get; set; }
         public string ModelName { get; set; }
         public string Colour { get; set; }
@@ -19,7 +18,7 @@ namespace Entities.Models
         public string Condition { get; set; }
         public string BodyType { get; set; }
         public Guid BrandId { get; set; }
-        public Guid? UserId { get; set; }
+        public Guid UserId { get; set; }
         // Navigation Properties
         public Brand Brand { get; set; }
 

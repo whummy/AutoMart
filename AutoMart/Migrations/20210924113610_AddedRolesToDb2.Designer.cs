@@ -4,14 +4,16 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AutoMart.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20210924113610_AddedRolesToDb2")]
+    partial class AddedRolesToDb2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,8 @@ namespace AutoMart.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CarId");
 
                     b.Property<string>("BodyType")
                         .HasColumnType("nvarchar(max)");
@@ -74,6 +77,8 @@ namespace AutoMart.Migrations
 
                     b.HasIndex("BrandId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Cars");
                 });
 
@@ -86,6 +91,9 @@ namespace AutoMart.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid?>("BrandId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -182,15 +190,15 @@ namespace AutoMart.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6413530c-08c0-4806-82f7-7dc17d235116",
-                            ConcurrencyStamp = "9042b1a8-b9c4-4bca-8985-509972981350",
+                            Id = "e006e4af-5ae5-43ca-b13f-16a7c952e0f1",
+                            ConcurrencyStamp = "142befa7-e057-4c6e-ad3a-3610cc5be355",
                             Name = "SuperUser",
                             NormalizedName = "SUPERUSER"
                         },
                         new
                         {
-                            Id = "4fc8e0e8-06bb-4955-b346-faf5ff54edda",
-                            ConcurrencyStamp = "296a71cd-ab87-48f4-a709-3a7f2fbd731a",
+                            Id = "bb5cecce-359d-462f-bea8-e07a2262999e",
+                            ConcurrencyStamp = "7a7cbdc2-42d2-4c23-9b92-5a0197b48a62",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -303,8 +311,14 @@ namespace AutoMart.Migrations
             modelBuilder.Entity("Entities.Models.Car", b =>
                 {
                     b.HasOne("Entities.Models.Brand", "Brand")
-                        .WithMany("Cars")
+                        .WithMany()
                         .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Brand", null)
+                        .WithMany("Cars")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 

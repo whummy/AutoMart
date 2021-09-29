@@ -11,6 +11,8 @@ namespace Contracts
     {
         Task<IEnumerable<Brand>> GetAllBrandsAsync(bool trackChanges);
         Task<Brand> GetBrandAsync(Guid brandId, bool trackChanges);
-        void CreateBrand(Brand brand);
+        void CreateBrand(Guid userId , Brand brand);
+        Task<IEnumerable<Brand>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges);
+        void DeleteBrand(Brand brand);
     }
 }

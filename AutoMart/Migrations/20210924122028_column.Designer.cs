@@ -4,14 +4,16 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AutoMart.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20210924122028_column")]
+    partial class column
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,6 +76,8 @@ namespace AutoMart.Migrations
 
                     b.HasIndex("BrandId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Cars");
                 });
 
@@ -86,6 +90,9 @@ namespace AutoMart.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid?>("BrandId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -182,15 +189,15 @@ namespace AutoMart.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6413530c-08c0-4806-82f7-7dc17d235116",
-                            ConcurrencyStamp = "9042b1a8-b9c4-4bca-8985-509972981350",
+                            Id = "ea2b27a1-0981-4eea-b477-c5898a15758d",
+                            ConcurrencyStamp = "19dbbf11-735e-4c1d-be7b-2bd3dd04dd92",
                             Name = "SuperUser",
                             NormalizedName = "SUPERUSER"
                         },
                         new
                         {
-                            Id = "4fc8e0e8-06bb-4955-b346-faf5ff54edda",
-                            ConcurrencyStamp = "296a71cd-ab87-48f4-a709-3a7f2fbd731a",
+                            Id = "bb2df1fa-1099-4d89-b573-3a4e93080d67",
+                            ConcurrencyStamp = "258d2b48-72c6-41ec-906f-db937dbee46e",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -303,8 +310,14 @@ namespace AutoMart.Migrations
             modelBuilder.Entity("Entities.Models.Car", b =>
                 {
                     b.HasOne("Entities.Models.Brand", "Brand")
-                        .WithMany("Cars")
+                        .WithMany()
                         .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Brand", null)
+                        .WithMany("Cars")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 

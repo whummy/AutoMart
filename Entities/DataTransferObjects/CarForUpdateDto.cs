@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities.DataTransferObjects
 {
-    public class CarForCreationDto
+    public class CarForUpdateDto
     {
         [Required(ErrorMessage = "Model name is a required field.")]
         [MaxLength(30, ErrorMessage = "Maximum length for the Name is 30 characters.")]
@@ -21,10 +21,7 @@ namespace Entities.DataTransferObjects
         public int Price { get; set; }
         [Required(ErrorMessage = "Condition is a required field.")]
         public string Condition { get; set; }
-        [Required(ErrorMessage = "Bodytype is a required field.")]
         public string BodyType { get; set; }
-
-        [Required(ErrorMessage = "brandId is required.")]
-        public Guid brandId { get; set; }
+        public IEnumerable<CarForCreationDto> Cars { get; set; }
     }
 }

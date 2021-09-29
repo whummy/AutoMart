@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace Entities.Models
 {
-    public class User
+    public class User: IdentityUser
     {
-        [Column("UserId")]
-        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Email { get; set; }
-        public Guid CarId { get; set; }
         // Navigation Properties
         public Brand Brand { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Entities.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,11 @@ namespace Contracts
 {
    public  interface ICarRepository
     {
-        IEnumerable<Car> GetCars(Guid brandId, bool trackChanges);
-        Car GetCar(Guid carId, Guid id, bool trackChanges);
-        void CreateCarForBrand(Guid brandId, Car car);
+        Task <PagedList<Car>> GetCarsAsync(Guid brandId, CarsParameters carParameters, bool trackChanges);
+        Task<Car> GetCarAsync(Guid id, bool trackChanges);
+        void CreateCar(Guid userId, Car car);
+        void DeleteCar(Car car);
+
 
 
     }

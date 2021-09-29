@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoMart</name>
+    </assembly>
+    <members>
+        <member name="M:AutoMart.Controllers.BrandsController.GetBrands">
+            <summary>
+            Gets the list of all brands
+            </summary>
+            <returns>The brands list</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.BrandsController.GetBrand(System.Guid)">
+            <summary>
+            Gets a brand with Id
+            </summary>
+            <returns>A brand</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.BrandsController.Createbrand(System.Guid,Entities.DataTransferObjects.BrandForCreationDto)">
+            <summary>
+            Creates a new brand
+            </summary>
+            <returns>A new brand</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.BrandsController.CreateCompanyCollection(System.Guid,System.Collections.Generic.IEnumerable{Entities.DataTransferObjects.BrandForCreationDto})">
+            <summary>
+            Creates a new brand collection
+            </summary>
+            <returns>A new brand collection</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.BrandsController.DeleteBrand(System.Guid)">
+            <summary>
+            Deletes a brand by Id
+            </summary>
+            <returns>Delete a brand by Id</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.BrandsController.UpdateBrand(System.Guid,Entities.DataTransferObjects.BrandForUpdateDto)">
+            <summary>
+            Updates a brand with Id
+            </summary>
+            <returns>Updates a brand</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.CarsController.GetCarByBrand(System.Guid,Entities.RequestFeatures.CarsParameters)">
+            <summary>
+            Gets the list of all carss
+            </summary>
+            <returns>The cars list</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.CarsController.GetCar(System.Guid)">
+            <summary>
+            Gets a Car with Id
+            </summary>
+            <returns>A car</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.CarsController.CreateCarAsync(System.Guid,Entities.DataTransferObjects.CarForCreationDto)">
+            <summary>
+            Creates a new car
+            </summary>
+            <returns>A new car</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.CarsController.DeleteCarForBrand(System.Guid)">
+            <summary>
+            Deletes a car by Id
+            </summary>
+            <returns>Delete a car by Id</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.CarsController.UpdateCar(System.Guid,System.Guid,Entities.DataTransferObjects.CarForUpdateDto)">
+            <summary>
+            Updates a car with Id
+            </summary>
+            <returns>Updates a car</returns>
+        </member>
+    </members>
+</doc>

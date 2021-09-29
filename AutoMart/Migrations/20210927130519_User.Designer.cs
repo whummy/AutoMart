@@ -4,14 +4,16 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AutoMart.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20210927130519_User")]
+    partial class User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,6 +75,8 @@ namespace AutoMart.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Cars");
                 });
@@ -182,15 +186,15 @@ namespace AutoMart.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6413530c-08c0-4806-82f7-7dc17d235116",
-                            ConcurrencyStamp = "9042b1a8-b9c4-4bca-8985-509972981350",
+                            Id = "d0181525-6a91-4587-acff-9dfcb3d5ffee",
+                            ConcurrencyStamp = "f09797b3-d166-4f78-b3e7-aef42c3304aa",
                             Name = "SuperUser",
                             NormalizedName = "SUPERUSER"
                         },
                         new
                         {
-                            Id = "4fc8e0e8-06bb-4955-b346-faf5ff54edda",
-                            ConcurrencyStamp = "296a71cd-ab87-48f4-a709-3a7f2fbd731a",
+                            Id = "b0a6a7db-1d19-4a4d-8061-083e009a9953",
+                            ConcurrencyStamp = "2bed4011-0274-41ce-8471-6e764ad937db",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -303,8 +307,14 @@ namespace AutoMart.Migrations
             modelBuilder.Entity("Entities.Models.Car", b =>
                 {
                     b.HasOne("Entities.Models.Brand", "Brand")
-                        .WithMany("Cars")
+                        .WithMany()
                         .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Brand", null)
+                        .WithMany("Cars")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 

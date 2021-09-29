@@ -15,9 +15,10 @@ namespace Entities.Configuration
         public void Configure(EntityTypeBuilder<Car> builder)
         {
             builder.HasOne(x => x.Brand)
-                .WithMany()
+                .WithMany(y=>y.Cars)
                 .HasForeignKey(x => x.BrandId)
-                 .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
+
                 builder.Property(x => x.ModelName).IsRequired();
                 builder.Property(x => x.BrandId).IsRequired();
 
