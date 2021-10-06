@@ -4,14 +4,16 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AutoMart.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20211004202509_imageupload")]
+    partial class imageupload
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,29 +85,21 @@ namespace AutoMart.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("Entities.Models.FileUpload", b =>
+            modelBuilder.Entity("Entities.Models.ImageUpload", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CarId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FileItemId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Imagepath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("InsertedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("imagepath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId");
-
-                    b.ToTable("FileUploads");
+                    b.ToTable("ImageUploads");
                 });
 
             modelBuilder.Entity("Entities.Models.User", b =>
@@ -213,15 +207,15 @@ namespace AutoMart.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dca78ea9-6a60-4186-ba95-bc9161bc5f5e",
-                            ConcurrencyStamp = "64339350-186d-4df0-9388-d0363afca247",
+                            Id = "44ef1f23-1736-4fb6-ad95-3c91aa134769",
+                            ConcurrencyStamp = "cea56c0b-ac10-499f-874e-a62fdb7ccbdb",
                             Name = "SuperUser",
                             NormalizedName = "SUPERUSER"
                         },
                         new
                         {
-                            Id = "ed4c4215-b5ae-40fa-9cc7-2b1781e71aeb",
-                            ConcurrencyStamp = "bcc8c078-cda6-476d-91cf-456c6159280e",
+                            Id = "e28332df-0141-43e3-b4f0-cd52181ffaa5",
+                            ConcurrencyStamp = "6dfcd6b8-3308-4bdc-ae64-3add34b13d40",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -342,13 +336,6 @@ namespace AutoMart.Migrations
                     b.Navigation("Brand");
                 });
 
-            modelBuilder.Entity("Entities.Models.FileUpload", b =>
-                {
-                    b.HasOne("Entities.Models.Car", null)
-                        .WithMany("FileUploads")
-                        .HasForeignKey("CarId");
-                });
-
             modelBuilder.Entity("Entities.Models.User", b =>
                 {
                     b.HasOne("Entities.Models.Brand", "Brand")
@@ -412,11 +399,6 @@ namespace AutoMart.Migrations
             modelBuilder.Entity("Entities.Models.Brand", b =>
                 {
                     b.Navigation("Cars");
-                });
-
-            modelBuilder.Entity("Entities.Models.Car", b =>
-                {
-                    b.Navigation("FileUploads");
                 });
 #pragma warning restore 612, 618
         }

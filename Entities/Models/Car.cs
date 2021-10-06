@@ -19,6 +19,9 @@ namespace Entities.Models
         public string BodyType { get; set; }
         public Guid BrandId { get; set; }
         public Guid UserId { get; set; }
+        public string Token { get; set; }
+        public ICollection<FileUpload> FileUploads { get; set; }
+
         // Navigation Properties
         public Brand Brand { get; set; }
 

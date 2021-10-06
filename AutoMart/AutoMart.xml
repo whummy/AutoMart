@@ -4,7 +4,7 @@
         <name>AutoMart</name>
     </assembly>
     <members>
-        <member name="M:AutoMart.Controllers.BrandsController.GetBrands">
+        <member name="M:AutoMart.Controllers.BrandsController.GetBrands(Entities.RequestFeatures.BrandParameters)">
             <summary>
             Gets the list of all brands
             </summary>
@@ -16,13 +16,13 @@
             </summary>
             <returns>A brand</returns>
         </member>
-        <member name="M:AutoMart.Controllers.BrandsController.Createbrand(System.Guid,Entities.DataTransferObjects.BrandForCreationDto)">
+        <member name="M:AutoMart.Controllers.BrandsController.Createbrand(System.String,Entities.DataTransferObjects.BrandForCreationDto)">
             <summary>
             Creates a new brand
             </summary>
             <returns>A new brand</returns>
         </member>
-        <member name="M:AutoMart.Controllers.BrandsController.CreateCompanyCollection(System.Guid,System.Collections.Generic.IEnumerable{Entities.DataTransferObjects.BrandForCreationDto})">
+        <member name="M:AutoMart.Controllers.BrandsController.CreateCompanyCollection(System.String,System.Collections.Generic.IEnumerable{Entities.DataTransferObjects.BrandForCreationDto})">
             <summary>
             Creates a new brand collection
             </summary>
@@ -52,7 +52,7 @@
             </summary>
             <returns>A car</returns>
         </member>
-        <member name="M:AutoMart.Controllers.CarsController.CreateCarAsync(System.Guid,Entities.DataTransferObjects.CarForCreationDto)">
+        <member name="M:AutoMart.Controllers.CarsController.CreateCarAsync(System.String,Entities.DataTransferObjects.CarForCreationDto)">
             <summary>
             Creates a new car
             </summary>
@@ -69,6 +69,15 @@
             Updates a car with Id
             </summary>
             <returns>Updates a car</returns>
+        </member>
+        <member name="M:AutoMart.Controllers.FileUploadController.Post(System.Guid,Entities.DataTransferObjects.CreateFileUploadDto)">
+            <summary>
+            This endpoint create a file for a particular item (car, profile pcitures and all other objects that requires an image)
+            The fileItemId is the Id of the item that owns this images e.g a car's Id.
+            </summary>
+            <param name="fileItemId"></param>
+            <param name="objectFile"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

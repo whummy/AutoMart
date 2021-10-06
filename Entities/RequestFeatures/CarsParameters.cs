@@ -8,8 +8,13 @@ namespace Entities.RequestFeatures
 {
     public class CarsParameters : RequestParameters
     {
+        public CarsParameters()
+        {
+            OrderBy = "name";
+        }
         public uint MinPrice { get; set; }
-        public uint MaxPrice { get; set; } = int.MaxValue;
+        public uint MaxPrice { get; set; } = int.MaxValue; 
         public bool ValidPriceRange => MaxPrice > MinPrice;
+        public string Search { get; set; } 
     }
 }

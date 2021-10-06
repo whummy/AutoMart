@@ -25,6 +25,7 @@ namespace Entities
         }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<FileUpload> FileUploads { get; set; }
 
     }
 }

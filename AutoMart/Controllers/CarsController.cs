@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace AutoMart.Controllers
 {
-    [Route("api/cars")]
+    [Route("api/v1/cars")]
     [ApiController]
     public class CarsController : ControllerBase
     {
@@ -34,7 +34,7 @@ namespace AutoMart.Controllers
         /// </summary>
         /// <returns>The cars list</returns>
         [AllowAnonymous]
-        [HttpGet("get-all/{brandId}")]
+        [HttpGet]
         public async Task<IActionResult> GetCarByBrand(Guid brandId,[FromQuery] CarsParameters carParameters)
         {
             if (!carParameters.ValidPriceRange)
@@ -67,9 +67,9 @@ namespace AutoMart.Controllers
         /// Creates a new car
         /// </summary>
         /// <returns>A new car</returns>
-        [HttpPost("{userId}")]
+        [HttpPost]
         //[ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> CreateCarAsync([FromRoute] Guid userId, [FromBody]CarForCreationDto car)
+        public async Task<IActionResult> CreateCarAsync([FromRoute] String Token, [FromBody]CarForCreationDto car)
         {
             if (car == null)
             {
@@ -87,7 +87,7 @@ namespace AutoMart.Controllers
             var carEntity = _mapper.Map<Car>(car);
 
 
-            _repository.Car.CreateCar(userId, carEntity);
+            _repository.Car.CreateCar(Token, carEntity);
             await _repository.SaveAsync();
             var carToReturn = _mapper.Map<CarDto>(carEntity);
 

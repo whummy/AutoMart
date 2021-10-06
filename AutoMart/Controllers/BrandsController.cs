@@ -4,9 +4,10 @@ using AutoMart.ModelBinders;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
+using Entities.RequestFeatures;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace AutoMart.Controllers
 {
-    [Route("api/brands")]
+    [Route("api/v1/brands")]
     [ApiController]
     public class BrandsController : ControllerBase
     {
@@ -34,10 +35,13 @@ namespace AutoMart.Controllers
         /// <returns>The brands list</returns>
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> GetBrands()
+        public async Task<IActionResult> GetBrands([FromQuery] BrandParameters brandParameters)
         {            
-            var brands =await _repository.Brand.GetAllBrandsAsync(trackChanges: false);
-            var brandsDto = _mapper.Map<IEnumerable<BrandDto>>(brands);
+            var brandsFromDb = await _repository.Brand.GetAllBrandsAsync(brandParameters, trackChanges: false);
+
+            Response.Headers.Add("X-Pagination",JsonConvert.SerializeObject(brandsFromDb.MetaData));
+
+            var brandsDto = _mapper.Map<IEnumerable<BrandDto>>(brandsFromDb);
 
             return Ok(brandsDto);
         }
@@ -84,8 +88,8 @@ namespace AutoMart.Controllers
         /// Creates a new brand
         /// </summary>
         /// <returns>A new brand</returns>
-        [HttpPost("{userId}"),Authorize]
-        public async Task<IActionResult> Createbrand([FromRoute] Guid userId, [FromBody] BrandForCreationDto brand)
+        [HttpPost, Authorize]
+        public async Task<IActionResult> Createbrand([FromRoute] string Token, [FromBody] BrandForCreationDto brand)
         {
             if (brand == null)
             {
@@ -94,7 +98,7 @@ namespace AutoMart.Controllers
             }
             var brandEntity = _mapper.Map<Brand>(brand);
 
-            _repository.Brand.CreateBrand(userId, brandEntity);
+            _repository.Brand.CreateBrand(Token, brandEntity);
             await _repository.SaveAsync();
 
             var brandToReturn = _mapper.Map<BrandDto>(brandEntity);
@@ -106,8 +110,7 @@ namespace AutoMart.Controllers
         /// </summary>
         /// <returns>A new brand collection</returns>
         [HttpPost("collection")]
-        public async Task<IActionResult> CreateCompanyCollection([FromRoute] Guid userId,
-            [FromBody]IEnumerable<BrandForCreationDto> brandCollection)
+        public async Task<IActionResult> CreateCompanyCollection([FromRoute] String Token, [FromBody]IEnumerable<BrandForCreationDto> brandCollection)
         {
             if (brandCollection == null)
             {
@@ -117,7 +120,7 @@ namespace AutoMart.Controllers
             var brandEntities = _mapper.Map<IEnumerable<Brand>>(brandCollection);
             foreach (var brand in brandEntities)
             {
-                _repository.Brand.CreateBrand(userId, brand);
+                _repository.Brand.CreateBrand(Token, brand);
             }
             await _repository.SaveAsync();
             var brandCollectionToReturn =

@@ -19,6 +19,7 @@ namespace AutoMart
             CreateMap<BrandForUpdateDto, Brand>();
             CreateMap<CarForUpdateDto, Car>();
             CreateMap<UserForRegistrationDto, User>();
+            CreateMap<CreateFileUploadDto, FileUpload>();
 
 
 

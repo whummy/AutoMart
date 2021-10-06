@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AutoMart.Controllers
 {
-    [Route("api/authentication")]
+    [Route("api/v1/auth")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace AutoMart.Controllers
             _authManager = authManager;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {
@@ -44,19 +44,22 @@ namespace AutoMart.Controllers
                 return BadRequest(ModelState);
             }
             await _userManager.AddToRolesAsync(user, userForRegistration.Roles);
-            return StatusCode(201);
+            var response = ("User created successfully");
+            return StatusCode(201,response);
 
         }
         [HttpPost("login")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
         {
+
             if (!await _authManager.ValidateUser(user))
             {
-                _logger.LogWarn($"{nameof(Authenticate)}: Authentication failed. Wrong user name or password.");
-                return Unauthorized();
+               var response = ("Authentication failed, Invalid email or password.");
+               return Unauthorized(response);
             }
-            return Ok(new { Token = await _authManager.CreateToken() });
+             var token  = await _authManager.CreateToken();
+             return Ok(token);
         }
     }
 }
