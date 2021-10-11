@@ -16,7 +16,7 @@
             </summary>
             <returns>A brand</returns>
         </member>
-        <member name="M:AutoMart.Controllers.BrandsController.Createbrand(System.String,Entities.DataTransferObjects.BrandForCreationDto)">
+        <member name="M:AutoMart.Controllers.BrandsController.Createbrand(Entities.DataTransferObjects.BrandForCreationDto)">
             <summary>
             Creates a new brand
             </summary>

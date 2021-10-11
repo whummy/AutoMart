@@ -12,7 +12,7 @@ namespace Contracts
     {
         Task<PagedList<Brand>> GetAllBrandsAsync(BrandParameters brandParameters, bool trackChanges);
         Task<Brand> GetBrandAsync(Guid brandId, bool trackChanges);
-        void CreateBrand(string Token , Brand brand);
+        void CreateBrand( Brand brand);
         Task<IEnumerable<Brand>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges);
         void DeleteBrand(Brand brand);
     }

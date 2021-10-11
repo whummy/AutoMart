@@ -47,7 +47,11 @@ namespace Repository
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name,_user.UserName)
+                new Claim(ClaimTypes.Name,_user.UserName),
+                new Claim(ClaimTypeHelper.Email, _user.Email),
+                new Claim(ClaimTypeHelper.UserId, _user.Id.ToString()),
+                new Claim(ClaimTypeHelper.FirstName, _user.FirstName),
+                new Claim(ClaimTypeHelper.LastName, _user.LastName),
             };
             var roles = await _userManager.GetRolesAsync(_user);
             foreach (var role in roles)

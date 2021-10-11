@@ -89,7 +89,7 @@ namespace AutoMart.Controllers
         /// </summary>
         /// <returns>A new brand</returns>
         [HttpPost, Authorize]
-        public async Task<IActionResult> Createbrand([FromRoute] string Token, [FromBody] BrandForCreationDto brand)
+        public async Task<IActionResult> Createbrand([FromBody] BrandForCreationDto brand)
         {
             if (brand == null)
             {
@@ -98,7 +98,7 @@ namespace AutoMart.Controllers
             }
             var brandEntity = _mapper.Map<Brand>(brand);
 
-            _repository.Brand.CreateBrand(Token, brandEntity);
+            _repository.Brand.CreateBrand (brandEntity);
             await _repository.SaveAsync();
 
             var brandToReturn = _mapper.Map<BrandDto>(brandEntity);
@@ -120,7 +120,7 @@ namespace AutoMart.Controllers
             var brandEntities = _mapper.Map<IEnumerable<Brand>>(brandCollection);
             foreach (var brand in brandEntities)
             {
-                _repository.Brand.CreateBrand(Token, brand);
+                _repository.Brand.CreateBrand(brand);
             }
             await _repository.SaveAsync();
             var brandCollectionToReturn =
