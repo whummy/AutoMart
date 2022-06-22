@@ -12,7 +12,7 @@ namespace Contracts
     {
         Task <PagedList<Car>> GetCarsAsync(Guid brandId, CarsParameters carParameters, bool trackChanges);
         Task<Car> GetCarAsync(Guid id, bool trackChanges);
-        void CreateCar(string Token, Car car);
+        void CreateCar(Car car);
         void DeleteCar(Car car);
 
 

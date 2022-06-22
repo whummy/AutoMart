@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Entities.Common;
+using System;
 using System.Collections.Generic;
 
 namespace Entities.Models
 {
-    public class Brand
+    public class Brand : AuditableEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

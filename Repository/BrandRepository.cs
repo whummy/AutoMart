@@ -30,8 +30,9 @@ namespace Repository
         public async Task<Brand> GetBrandAsync(Guid brandId, bool trackChanges) =>
              await FindByCondition(b => b.Id.Equals(brandId), trackChanges)
              .SingleOrDefaultAsync();
-        public void CreateBrand(Brand brand)
+        public void CreateBrand( Brand brand)
         {
+           
             Create(brand);
         }            
            

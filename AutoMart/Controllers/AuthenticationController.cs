@@ -61,5 +61,6 @@ namespace AutoMart.Controllers
              var token  = await _authManager.CreateToken();
              return Ok(token);
         }
+
     }
 }

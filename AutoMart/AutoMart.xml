@@ -52,7 +52,7 @@
             </summary>
             <returns>A car</returns>
         </member>
-        <member name="M:AutoMart.Controllers.CarsController.CreateCarAsync(System.String,Entities.DataTransferObjects.CarForCreationDto)">
+        <member name="M:AutoMart.Controllers.CarsController.CreateCarAsync(Entities.DataTransferObjects.CarForCreationDto)">
             <summary>
             Creates a new car
             </summary>

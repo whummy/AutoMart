@@ -14,4 +14,16 @@ namespace Entities.Models
         public User User { get; set; }
         
     }
+    public class RefreshTokenDTO
+    {
+        public string AccessToken { get; set; }
+        public string RefreshToken { get; set; }
+    }
+
+    public class UserTokenResponse
+    {
+        public string AccessToken { get; set; }
+        public DateTime? ExpiresIn { get; set; }
+        public string RefreshToken { get; set; }
+    }
 }

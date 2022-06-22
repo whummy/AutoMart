@@ -69,7 +69,7 @@ namespace AutoMart.Controllers
         /// <returns>A new car</returns>
         [HttpPost]
         //[ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> CreateCarAsync([FromRoute] String Token, [FromBody]CarForCreationDto car)
+        public async Task<IActionResult> CreateCarAsync([FromBody]CarForCreationDto car)
         {
             if (car == null)
             {
@@ -87,7 +87,7 @@ namespace AutoMart.Controllers
             var carEntity = _mapper.Map<Car>(car);
 
 
-            _repository.Car.CreateCar(Token, carEntity);
+            _repository.Car.CreateCar(carEntity);
             await _repository.SaveAsync();
             var carToReturn = _mapper.Map<CarDto>(carEntity);
 

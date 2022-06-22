@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class Car
+    public class Car : AuditableEntity
     {
         public Guid Id { get; set; }
         public string ModelName { get; set; }

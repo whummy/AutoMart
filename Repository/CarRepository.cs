@@ -32,9 +32,8 @@ namespace Repository
         public async Task<Car> GetCarAsync(Guid id, bool trackChanges) =>
          await FindByCondition(c => c.Id.Equals(id), trackChanges)
          .SingleOrDefaultAsync();
-        public void CreateCar(string token, Car car)
+        public void CreateCar( Car car)
         {
-            car.Token = token;
             Create(car);
         }
         public void DeleteCar(Car car)
